@@ -1,0 +1,18 @@
+from graph import *
+
+# h=int(input('ведите рвдиус смайлика '))
+penColor(0,0,0)
+brushColor("yellow")
+circle(250, 300, 150)
+brushColor("red")
+circle(190,230,23)
+circle(310,230,15)
+brushColor("black")
+rectangle(190, 370, 310, 400)
+circle(190,230,8)
+circle(310,230,8)
+penColor(0,0,0)
+penSize(13)
+line(100,120,230,230)
+line(390,180,280,220)
+run()
