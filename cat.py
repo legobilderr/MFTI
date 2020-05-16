@@ -19,7 +19,7 @@ rectangle(270, 107, 370, 280)
 
 
 
-#я не мтал создавать хвост элипс 
+#я не cтал создавать хвост эллипс 
 def kat (x,y,size,colors=(213,125,37)):
     def bdy ():
         brushColor(colors)
