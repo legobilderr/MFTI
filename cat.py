@@ -37,18 +37,60 @@ def kat (x,y,size,colors=(213,125,37)):
             brushColor(242,177,177)
             polygon([(x-size*7.65,y-size*1.5),(x-size*7.75,y-size*2.2),(x-size*7.38,y-size*1.8),(x-size*7.65,y-size*1.5)])
             polygon([(x-size*5.95,y-size*1.5),(x-size*5.85,y-size*2.2),(x-size*6.25,y-size*1.8),(x-size*5.95,y-size*1.5)])
-        ears()    
-        def eye ():
+        ears()
+        # глаза     
+        def eye (): 
             brushColor(75,210,75)
             circle(x-size*7.27, y-size, size*0.33)
             circle(x-size*6.27, y-size, size*0.33)
             brushColor(0,0,0)
-            oval(x-size*7.2, y-size*1.27,x-size*7.1,y-size/1.4)
-            oval(x-size*6.2, y-size*1.27,x-size*6.1,y-size/1.4)
             brushColor(255,255,255)
             circle(x-size*7.35,y-size*1.2,size*0.1)
             circle(x-size*6.35,y-size*1.2,size*0.1)
         eye()
+        #кот всегда старается закрыть глаза разбудите его нажатием клавиши вверх 
+        brushColor(0,0,0)
+        pupil_eye=oval(x-size*7.2, y-size*1.27,x-size*7.1,y-size/1.4)
+        pupil_eye1=oval(x-size*6.2, y-size*1.27,x-size*6.1,y-size/1.4)
+        brushColor(colors)
+        penColor(colors)
+        
+        eyelids=arc(x-size*7.63,y-size*1.7,x-size*6.95,y-size*0.9,0,180,style=PIESLICE)
+        eyelids1=arc(x-size*6.63,y-size*1.7,x-size*5.95,y-size*0.9,0,180,style=PIESLICE)
+        # 2 функции в коорые мы будем вызвать с таймингом стремяться закрыть веки коту (если не достигнут их придел по оси y)
+        def update1(): 
+            moveObjectBy(eyelids1,0,size*0.01)
+            if yCoord(eyelids1)>=y-size*1.40:
+                moveObjectBy(eyelids1,0,-size*0.01)
+        def update ():
+            moveObjectBy(eyelids,0,size*0.01)
+            if yCoord(eyelids)>=y-size*1.40:
+                moveObjectBy(eyelids,0,-size*0.01)            
+        # функцция которая будет выполнять различные действитя в зависимости от нажатия клавиши 
+        def keypresed (event):
+            if event.keycode == VK_DOWN  :
+                if yCoord(eyelids)<=y-size*1.40:
+                    moveObjectBy(eyelids,0,size*0.01)
+                    moveObjectBy(eyelids1,0,size*0.01)
+            elif event.keycode== VK_UP:
+                if yCoord(eyelids)>=y-size*1.7:
+                    moveObjectBy(eyelids,0,-size*0.01)
+                    moveObjectBy(eyelids1,0,-size*0.01)
+            # следующие 2 элиф двигиают зрачки кота если не достигнут придел по x 
+            elif event.keycode==VK_LEFT:
+                if xCoord(pupil_eye)>=x-size*7.5:
+                    moveObjectBy(pupil_eye,-size*0.01,0)
+                    moveObjectBy(pupil_eye1,-size*0.01,0)
+            elif event.keycode==VK_RIGHT:
+                if xCoord(pupil_eye)<=x-size*7.2:
+                    moveObjectBy(pupil_eye,size*0.01,0)
+                    moveObjectBy(pupil_eye1,size*0.01,0)
+
+        onKey(keypresed)
+        onTimer(update1,50)
+        onTimer(update,50)
+        # рот
+        penColor('black')
         brushColor(242,177,177)
         polygon([(x-size*6.77,y-size*0.5),(x-size*6.97,y-size*0.7),(x-size*6.57,y-size*0.7),(x-size*6.77,y-size*0.5)])
         line(x-size*6.77,y-size*0.5,x-size*6.77,y-size*0.25)
@@ -187,11 +229,11 @@ def kat1 (x,y,size,colors=(213,125,37)):
     bdy()
 
 
-
+kat(200,300,10,'black')
 kat(500,410,50)
 kat1(20,490,20,'grey')
 
-kat(200,300,10,'black')
+
 
 booll(300,520,40)
 booll(50,250,70,'green')
