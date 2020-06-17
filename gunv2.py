@@ -16,7 +16,7 @@ def main():
     
     shots = canv.create_text(400, 300, text='', font='28')
     gun = Gun()
-    walls=[Wall() for i in range (2) ]
+    walls=[Wall() for i in range (3) ]
    
     bullet = 0
     balls = []
